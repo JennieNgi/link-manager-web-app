@@ -1,0 +1,34 @@
+@model Category;
+
+<div class="row my-2">
+    <div class="col">
+        <div class="d-flex align-items-center">
+            <h1>_LaunchPad Administration.</h1>
+            <a class="ml-5" asp-controller="Admin" asp-action="Logout">logout</a>
+            <span id="lblExpire" class="text-warning" style="margin-left:10px"></span>
+        </div>
+        <h2 class="text-warning">Update Category.</h2>
+        <div style="margin-bottom:10px">Edit the category data below</div>
+ 
+        <form asp-controller="Admin" asp-action="UpdateSubmit">
+            <input type="hidden" asp-for="@Model.categoryID" />
+
+            <div class="form-group">
+                <label asp-for="@Model.categoryName"></label>
+                <input type="text" asp-for="@Model.categoryName" class="form-control" maxlength="100" />
+                <span asp-validation-for="@Model.categoryName" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-warning" Text="Add" />
+                <a asp-controller="Admin" asp-action="Admin"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+            </div>
+            
+        </form>
+
+    </div>
+</div>
+
+@section scripts {
+    <script>startAutoLogout();</script>
+}

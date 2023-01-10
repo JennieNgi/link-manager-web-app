@@ -1,0 +1,33 @@
+@model Link;
+
+<div class="row my-2">
+    <div class="col">
+        <div class="d-flex align-items-center">
+            <h1>_LaunchPad Administration.</h1>
+            <a class="ml-5" asp-controller="Admin" asp-action="Logout">logout</a>
+            <span id="lblExpire" class="text-warning" style="margin-left:10px"></span>
+        </div>
+        <h2 class="text-warning">Delete Link.</h2>
+        <div style="margin-bottom:10px">Are you sure you want to delete the following link?</div>
+ 
+        <form asp-controller="Admin" asp-action="DeleteSubmit">
+
+            <input type="hidden" asp-for="@Model.linkID" />
+
+            <div class="mb-2">
+                <img class="w-1 h-1 mr-2"src="@Model.href" alt="" /><span>@Model.linkName | @Model.href</span> 
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-warning" Text="Delete" />
+                <a asp-controller="Admin" asp-action="Admin"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+            </div>
+            
+        </form>
+
+    </div>
+</div>
+
+@section scripts {
+    <script>startAutoLogout();</script>
+}

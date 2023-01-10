@@ -1,0 +1,62 @@
+﻿@model LinkManager
+
+<form method="post">
+    <div>
+        <h1>_LaunchPad.</h1>
+
+        <div>
+
+            <table class="table table-responsive table-borderless">
+                <thead>
+                    <tr>
+                        @foreach (var item in Model.categories) {
+                            <th >
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-2">@item.categoryName</div>
+                                </div>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        @for (int i = 1; i < @Model.categories.Count + 1; i++) 
+                        {
+                        <td class="">
+                            @foreach (var link in Model.links.Where(l => l.categoryRefID == i && l.pinned == 1)) {
+                                <div class="d-flex align-items-baseline mb-2"> 
+                                    <div><img class="w-1 h-1 mr-2" src="https://www.google.com/s2/favicons?domain_url=@link.href" alt="@link.linkName" /></div>
+                                    
+                                    <div class="text-break" style="width: 14rem;"><a href="@link.href" target="_blank">@link.linkName</a></div>
+                                </div>
+                            }
+
+                            @{
+                                if (@Model.links.Where(l => l.categoryRefID == i && l.pinned == 1).ToList().Count == 0){
+                                    <hr class="d-none">
+                                } else {
+                                    <hr class="d-block mt-2 mb-2">
+                                }
+                            }
+
+                            @foreach (var link in Model.links.Where(l => l.categoryRefID == i && l.pinned == 0)) {
+                                <div class="d-flex align-items-baseline mt-2"> 
+                                    <div><img class="w-1 h-1 mr-2" src="https://www.google.com/s2/favicons?domain_url=@link.href" alt="@link.linkName" /></div>
+                                    <div class="text-break" style="width: 14rem;"><a href="@link.href" target="_blank">@link.linkName</a></div>
+                                </div>
+                            }
+                        </td>
+                        }
+                    </tr>
+                    
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</form>
+
+
+

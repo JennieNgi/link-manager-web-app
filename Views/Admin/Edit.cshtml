@@ -1,0 +1,73 @@
+
+@model LinkManager;
+
+<div class="row my-2">
+    <div class="col">
+        <div class="d-flex align-items-center">
+            <h1>_LaunchPad Administration.</h1>
+            <a class="ml-5" asp-controller="Admin" asp-action="Logout">logout</a>
+            <span id="lblExpire" class="text-warning" style="margin-left:10px"></span>
+        </div>
+        <h2 class="text-warning">Edit Link.</h2>
+        <div style="margin-bottom:10px">Edit the link data below</div>
+ 
+        <form asp-controller="Admin" asp-action="EditSubmit">
+
+            <input type="hidden" asp-for="@Model.link.linkID" />
+            <div class="mb-2">Category</div>
+            <div class="form-group">
+                <select asp-items="ViewBag.selectList" asp-for="@Model.link.categoryRefID" class="btn-secondary form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.link.linkName"></label>
+                <input type="input" asp-for="@Model.link.linkName" class="form-control" maxlength="100"/>
+                <span asp-validation-for="@Model.link.linkName" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.link.href"></label>
+                <input type="input" asp-for="@Model.link.href" class="form-control" maxlength="500"/>
+                <span asp-validation-for="@Model.link.href" class="text-danger" />
+            </div>
+
+            <label>Pin</label>
+            <div class="form-group">
+                <input type="checkbox" id="pinnedCheckbox">
+                <label asp-for="@Model.link.pinned"></label>
+                <input type="hidden" asp-for="@Model.link.pinned" id="pinned"/>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-warning" Text="Edit" />
+                <a asp-controller="Admin" asp-action="Admin"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+            </div>
+            
+        </form>
+
+    </div>
+</div>
+
+@section scripts {
+    <script> 
+        if ($("#pinned").val() == 1){
+            $('#pinnedCheckbox').prop('checked', true);
+        } else {
+            $('#pinnedCheckbox').prop('checked', false);
+        }
+
+        // ---------------------------------------------- Change the value based on the checkbox status
+       $('#pinnedCheckbox').change(function() {
+            if (document.getElementById('pinnedCheckbox').checked == true){
+                $("#pinned").val(1);
+                console.log("checked");
+            } else {
+                $("#pinned").val(0);
+                console.log("not checked");
+            }
+        });
+
+        startAutoLogout();
+
+   </script>
+}

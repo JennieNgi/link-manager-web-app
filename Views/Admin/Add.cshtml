@@ -1,0 +1,68 @@
+﻿@model LinkManager;
+
+<div class="row my-2">
+    <div class="col">
+        <div class="d-flex align-items-center">
+            <h1>_LaunchPad Administration.</h1>
+            <a class="ml-5" asp-controller="Admin" asp-action="Logout">logout</a>
+            <span id="lblExpire" class="text-warning" style="margin-left:10px"></span>
+        </div>
+        <h2 class="text-warning">Add Link.</h2>
+        <div style="margin-bottom:10px">Enter the new link data below:</div>
+        
+        <form method="post">
+            <input type="hidden" asp-for="@Model.link.categoryRefID" />
+
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" asp-for="@Model.category.categoryName" disabled class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.link.linkName"></label>
+                <input type="text" asp-for="@Model.link.linkName" class="form-control" maxlength="100"/>
+                <span asp-validation-for="@Model.link.linkName" class="text-danger" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="@Model.link.href"></label>
+                <input type="text" asp-for="@Model.link.href" class="form-control" maxlength="500"/>
+                <span asp-validation-for="@Model.link.href" class="text-danger" />
+            </div>
+
+            <label>Pin</label>
+            <div class="form-group">
+                <input type="checkbox" id="pinnedCheckbox">
+                <label asp-for="@Model.link.pinned"></label>
+                <input type="hidden" asp-for="@Model.link.pinned" id="pinned"/>
+            </div>
+
+            
+            @* <div asp-validation-summary="All" class="text-danger"></div> *@
+
+            <div class="form-group">
+                <input type="submit" asp-controller="Admin" asp-action="AddSubmit" class="btn btn-warning" Text="Add" />
+                <a asp-controller="Admin" asp-action="Admin"><input type="button" class="btn btn-warning" value="Cancel" /></a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section scripts {
+    <script> 
+        // ---------------------------------------------- Change the value based on the checkbox status
+       $('#pinnedCheckbox').change(function() {
+            if (document.getElementById('pinnedCheckbox').checked == true){
+                $("#pinned").val(1);
+                console.log("checked");
+            } else {
+                $("#pinned").val(0);
+                console.log("not checked");
+            }
+        });
+
+        startAutoLogout();
+
+   </script>
+}

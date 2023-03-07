@@ -24,7 +24,7 @@ The administration end must be accessed through a login that uses a hashed and s
 - Docker (for running the MySQL database in a container)
 
 ## Installation and Usage
-- Clone this repository: git clone https://github.com/your-username/tech-roster
+- Clone this repository
 - Change to the project directory: cd tech-roster
 - Run the docker: docker-compose up
 - Run the application: dotnet run start
